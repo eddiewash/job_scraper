@@ -1,2 +1,2 @@
 # job_scraper
-Scraping Technical Project Management Jobs
+Scraping Technical Product/Project Management Jobs at Startups

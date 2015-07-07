@@ -1,6 +1,6 @@
 desc "Grab product postings"
 
-task :product_postings => :environment do
+task product_postings: :environment do
 
   require 'nokogiri'
   require 'open-uri'
