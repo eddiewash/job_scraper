@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
   def index
-    render text: "Job postings go here..."
+    @jobs = Job.all
   end
 end

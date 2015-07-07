@@ -1,2 +1,7 @@
-<h1>Jobs#index</h1>
-<p>Find me in app/views/jobs/index.html.erb</p>
+<h1>Technical Product/Project Management Gigs</h1>
+
+<ul>
+  <% @jobs.each do |job| %>
+    <li><b><%= job.company %></b>: <%= link_to job.title, job.link %></li>
+  <% end %>
+</ul>

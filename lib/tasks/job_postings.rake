@@ -1,17 +1,18 @@
 desc "Grab product postings"
 
-task product_postings: :environment do
+task fetch_postings: :environment do
 
   require 'nokogiri'
   require 'open-uri'
 
   url = "http://www.garysguide.com/jobs/product"
   doc = Nokogiri::HTML(open(url))
+  Job.destroy_all
   doc.css(".boxx1 div:nth-child(2)").each do |job|
-    role = job.at_css(".flarge a").text
+    title = job.at_css(".flarge a").text
     company = job.at_css(".fblack b").text
     link = job.at_css(".flarge a")[:href]
-    puts "#{role} at #{company}"
+    Job.create title: title, company: company, link: "http://www.garysguide.com#{link}"
   end
 
 end
