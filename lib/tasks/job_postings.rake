@@ -15,6 +15,29 @@ task fetch_postings: :environment do
     Job.create title: title, company: company, link: "http://www.garysguide.com#{link}"
   end
 
+page = 1
+
+13.times do
+  url2 = "http://www.glassdoor.com/Job/new-york-technical-project-manager-jobs-SRCH_IL.0,8_IC1132348_KO9,34_IP#{page}.htm"
+  doc2 = Nokogiri::HTML(open(url2))
+  doc2.css(".jobListing").each do |job|
+    title = job.at_css(".jobLink").text
+    company = job.at_css(".employerName").text
+    link = job.at_css(".jobLink")[:href]
+    Job.create title: title, company: company, link: "http://www.glassdoor.com/#{link}"
+  end
+  page += 1
+end
+
+  # url3 = "http://www.glassdoor.com/Job/new-york-technical-project-manager-jobs-SRCH_IL.0,8_IC1132348_KO9,34.htm"
+  # doc3 = Nokogiri::HTML(open(url3))
+  # doc3.css(".jobListing").each do |job|
+  #   title = job.at_css(".jobLink").text
+  #   company = job.at_css(".employerName").text
+  #   link = job.at_css(".jobLink")[:href]
+  #   Job.create title: title, company: company, link: "http://www.glassdoor.com/#{link}"
+  # end
+
 end
 
 # desc "Fetch product prices"

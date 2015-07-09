@@ -1,7 +1,17 @@
-<h1>Technical Product/Project Management Gigs</h1>
+<h1><span style="color:#66ff99; font-size:100px;"><%= @jobs.count %></span> Technical Product/Project Management Gigs</h1>
 
-<ul>
+<!-- <table align="center"> -->
+<div id="main_container">
   <% @jobs.each do |job| %>
-    <li><b><%= job.company %></b>: <%= link_to job.title, job.link %></li>
+      <div class="job">
+        <div class="text">
+          <b><%= job.company %></b>
+          <div>
+            <%= link_to job.title, job.link, class: 'myButton', target: '_blank' %>
+          </div>
+        </div>
+      </div>
   <% end %>
-</ul>
+  <div style="clear:both;"></div>
+</div>
+<!-- </table> -->
