@@ -13,7 +13,8 @@ task fetch_postings: :environment do
     title = job.at_css(".flarge a").text
     company = job.at_css(".fblack b").text
     link = job.at_css(".flarge a")[:href]
-    Job.create title: title, company: company, link: "http://www.garysguide.com#{link}"
+    origin = "GarysGuide"
+    Job.create title: title, company: company, link: "http://www.garysguide.com#{link}", origin: origin
   end
 
   page = 1
@@ -23,9 +24,10 @@ task fetch_postings: :environment do
     doc2 = Nokogiri::HTML(open(url2))
     doc2.css(".jobListing").each do |job|
       title = job.at_css(".jobLink").text
-      company = job.at_css(".employerName").text
+      company = job.at_css(".employerName strong").text
       link = job.at_css(".jobLink")[:href]
-      Job.create title: title, company: company, link: "http://www.glassdoor.com/#{link}"
+      origin = "Glassdoor"
+      Job.create title: title, company: company, link: "http://www.glassdoor.com/#{link}", origin: origin
     end
     page += 1
   end

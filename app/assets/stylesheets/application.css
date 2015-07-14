@@ -26,6 +26,14 @@ b {
   font-size:30px;
 }
 
+a {
+  text-decoration:none;
+}
+
+a:hover {
+  color:#66ff99;
+}
+
 #main_container {
 width: 852px;
 margin: 20px auto;
