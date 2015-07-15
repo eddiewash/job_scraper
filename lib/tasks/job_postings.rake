@@ -31,6 +31,12 @@ task fetch_postings: :environment do
     end
     page += 1
   end
+
+  Job.all.each do |job|
+    if job.company == "General Assembly"
+      job.delete
+    end
+  end
 end
 
 # desc "Fetch product prices"
