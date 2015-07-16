@@ -10,4 +10,8 @@ class JobsController < ApplicationController
   def glassdoor
     @jobs = Job.where origin: "Glassdoor"
   end
+
+  def indeed
+    @jobs = Job.where origin: "Indeed"
+  end
 end

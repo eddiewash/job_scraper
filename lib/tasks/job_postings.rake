@@ -32,22 +32,33 @@ task fetch_postings: :environment do
     page += 1
   end
 
+  page = 0
+
+  86.times do
+    url3 = "http://www.indeed.com/jobs?q=%22Product+Manager%22+OR+%22Technical+Project+Manager%22&l=New+York,+NY&sr=directhire&start=#{page}"
+    doc3 = Nokogiri::HTML(open(url3))
+    doc3.css(".result").each do |job|
+        title = job.at_css(".jobtitle").text
+        unless job.at_css(".company") == nil
+          company = job.at_css(".company").text
+        end
+        link = job.at_css(".jobtitle")[:href]
+        origin = "Indeed"
+        Job.create title: title, company: company, link: "http://www.indeed.com/#{link}", origin: origin
+    end
+    page = page + 10
+  end
+
+
   Job.all.each do |job|
     if job.company == "General Assembly"
       job.delete
     end
   end
-end
 
-# desc "Fetch product prices"
-# task :fetch_prices => :environment do
-#   require 'nokogiri'
-#   require 'open-uri'
+end # end of task!
 
-#   Product.find_all_by_price(nil).each do |product|
-#     url = "http://www.walmart.com/search/search-ng.do?search_constraint=0&ic=48_0&search_query=#{CGI.escape(product.name)}&Find.x=0&Find.y=0&Find=Find"
-#     doc = Nokogiri::HTML(open(url))
-#     price = doc.at_css(".PriceCompare .BodyS, .PriceXLBold").text[/[0-9\.]+/]
-#     product.update_attribute(:price, price)
-#   end
-# end
+
+
+
+
