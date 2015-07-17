@@ -34,6 +34,16 @@ a:hover {
   color:#66ff99;
 }
 
+.ellipsis {
+  text-overflow: ellipsis;
+  width: 100%;
+  display: block;
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+
 #main_container {
 width: 852px;
 margin: 20px auto;
@@ -72,7 +82,7 @@ margin: 20px auto;
   -webkit-border-radius:6px;
   border-radius:6px;
   border:1px solid #337fed;
-  display:inline-block;
+  display:block;
   cursor:pointer;
   color:#ffffff;
   font-family:Arial;
@@ -81,6 +91,10 @@ margin: 20px auto;
   padding:6px 24px;
   text-decoration:none;
   text-shadow:0px 1px 0px #1570cd;
+  text-overflow: ellipsis;
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
 }
 .myButton:hover {
   background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #1e62d0), color-stop(1, #3d94f6));

@@ -38,13 +38,13 @@ task fetch_postings: :environment do
     url3 = "http://www.indeed.com/jobs?q=%22Product+Manager%22+OR+%22Technical+Project+Manager%22&l=New+York,+NY&sr=directhire&start=#{page}"
     doc3 = Nokogiri::HTML(open(url3))
     doc3.css(".result").each do |job|
-        title = job.at_css(".jobtitle").text
-        unless job.at_css(".company") == nil
+        unless job.at_css(".company") == nil || job.at_css(".jobtitle")[:href] == nil
+          origin = "Indeed"
+          title = job.at_css(".jobtitle").text
           company = job.at_css(".company").text
+          link = "http://www.indeed.com/" + job.at_css(".jobtitle")[:href]
+          Job.create title: title, company: company, link: link, origin: origin
         end
-        link = job.at_css(".jobtitle")[:href]
-        origin = "Indeed"
-        Job.create title: title, company: company, link: "http://www.indeed.com/#{link}", origin: origin
     end
     page = page + 10
   end
